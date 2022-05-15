@@ -1,0 +1,18 @@
+DES
+{encrypting} enc -des-cbc -in t.txt -k 123 -out r.txt
+{decrypting} enc -d -des-cbc -in t.txt -k 123 -out r.txt
+RC4
+""
+AES
+{encrypting} enc -aes-256-cbc -in t.txt -out r.txt -k 123
+{decrypting} enc -d -aes-256-cbc -in t.txt -out r.txt -k 123
+RSA
+{private} genrsa -out pr.key 1024
+{public} rsa -pubout -in pr.key -out Pb.key
+{encrypting} rsautl -encrypt -pubin -inkey pb.key -in yourkey.key -out enyourkey.key
+{decrypting} rsautl -decrypt -inkey pr.key -in enyourkey.key -out yourkey.key
+{key generator} rand -out key.txt -hex 24
+{Hash} dgst -md5 file.txt
+	dgst -md5 filehash.txt  file.txt
+{Signature e} rsault -sign -inkey pr.key -in doc.txt -out signature.txt 
+{Signature d}rsault -verify -pubin  -inkey pb.key -in signature.txt  -out signature.txt 
